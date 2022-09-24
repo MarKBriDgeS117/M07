@@ -63,7 +63,7 @@
         }
         
        
-        return base64_decode(base64_decode(base64_encode(pack('H*',$result))));
+        return base64_decode(pack('H*',$result));
         
 
     }
@@ -83,7 +83,7 @@
         $arrayip = str_split($int);
 
         $adeu = array_sum($arrayip);
-
+        
         return   $adeu;
     }
     
