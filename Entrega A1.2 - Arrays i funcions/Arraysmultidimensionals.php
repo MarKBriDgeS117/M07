@@ -89,24 +89,24 @@ function creaMatriu(int $n)
  */ 
 function mostrarMatriu(array $arrayMatriu)
 {
-    $result = '<table>';
+    $taulaMatriuHtml = '<table>';
 
     foreach ($arrayMatriu as $Columnes) {
 
-        $result =  $result . '<tr>';
+        $taulaMatriuHtml =  $taulaMatriuHtml . '<tr>';
 
         foreach ($Columnes as $Files) {
 
-            $result = $result . '<td>' .  $Files . '</td>';
+            $taulaMatriuHtml = $taulaMatriuHtml . '<td>' .  $Files . '</td>';
 
         }
 
-        $result = $result . '</tr>';
+        $taulaMatriuHtml = $taulaMatriuHtml . '</tr>';
     }
 
-    $result = $result . '</table>';
+    $taulaMatriuHtml = $taulaMatriuHtml . '</table>';
 
-    return $result;
+    return $taulaMatriuHtml;
 }
 /**
  * funció que rep una matriu i retorna una altra matriu amb el valor de les files per les columnes intercanviats.
