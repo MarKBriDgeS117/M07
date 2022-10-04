@@ -104,13 +104,14 @@ function calcularOperacio(string $operacio)
 /**
  * Funció que li passes un nombre i el retorna amb 4 decimals si en té.
  *
- * @param float $operacio És el número que volem tornar amb quatre decimals.
- * @return float $resultat Retorna el número amb quatre decimals.  
+ * @param float $numero És el número que volem tornar amb quatre decimals.
+ * @return float $numero Retorna el número amb quatre decimals.  
  */
 function truncarNumero(float $numero): float
 {
     $format = sprintf('%%.%df', 4 + 1);
-    return (float) substr(sprintf($format, $numero), 0, -1);
+    $numero = substr(sprintf($format, $numero), 0, -1);
+    return (float) $numero;
 }
 /**
  * Funció que recorre tot l'array comprovant que no es pugui introduir dos símbols iguals seguits. 
