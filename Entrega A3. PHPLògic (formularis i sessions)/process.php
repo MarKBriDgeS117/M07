@@ -7,11 +7,11 @@ $rebo_dades = ($_SERVER['REQUEST_METHOD'] == 'POST');
 
 $dades_ok =   $rebo_dades &&
 
-    isset($_REQUEST['resultat']);
+    isset($_POST['resultat']);
 
 if ($rebo_dades) {
-    if ($dades_ok && !$_REQUEST['resultat'] == "") {
-        $paraulaEntrada = $_REQUEST['resultat'];
+    if ($dades_ok && !$_POST['resultat'] == "") {
+        $paraulaEntrada = $_POST['resultat'];
         header("Location: index.php", true, 302);
         CompravarParaula($paraulaEntrada);
         die();
