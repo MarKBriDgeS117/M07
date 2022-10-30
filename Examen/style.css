@@ -216,3 +216,23 @@ input {
 .noheight{
     min-height: auto;
 }
+
+#message {
+    position: absolute;
+    background-color: #ec4a49;
+    color: #fff;
+    border-radius: 3px;
+    padding: 5px;
+    z-index: 100;
+    pointer-events: none;
+}
+
+.hide {
+    transition: opacity 1.5s;
+}
+
+.container-notifications {
+    display: flex;
+    justify-content: center;
+    margin-top: 8px;
+}

@@ -1,0 +1,86 @@
+[
+    {
+        "ip": "::1",
+        "user": "marcpontbartroli@gmail.com",
+        "time": "2022-10-30 07:40:18",
+        "status": "signin_email_error"
+    },
+    {
+        "ip": "::1",
+        "user": "marcpontbartroli@gmail.com",
+        "time": "2022-10-30 07:40:28",
+        "status": "signup_success"
+    },
+    {
+        "ip": "::1",
+        "user": "marcpontbartroli@gmail.com",
+        "time": "2022-10-30 07:40:45",
+        "status": "logoff"
+    },
+    {
+        "ip": "::1",
+        "user": "Pere@gmail.com",
+        "time": "2022-10-30 07:40:58",
+        "status": "signup_success"
+    },
+    {
+        "ip": "::1",
+        "user": "Pere@gmail.com",
+        "time": "2022-10-30 07:41:00",
+        "status": "logoff"
+    },
+    {
+        "ip": "::1",
+        "user": "Pere@gmail.com",
+        "time": "2022-10-30 07:41:06",
+        "status": "signin_success"
+    },
+    {
+        "ip": "::1",
+        "user": "Pere@gmail.com",
+        "time": "2022-10-30 07:41:10",
+        "status": "logoff"
+    },
+    {
+        "ip": "::1",
+        "user": "marcpontbartroli@gmail.com",
+        "time": "2022-10-30 07:41:11",
+        "status": "signin_success"
+    },
+    {
+        "ip": "::1",
+        "user": "marcpontbartroli@gmail.com",
+        "time": "2022-10-30 07:41:14",
+        "status": "logoff"
+    },
+    {
+        "ip": "::1",
+        "user": "Pepito@gmail.com",
+        "time": "2022-10-30 07:44:03",
+        "status": "signup_success"
+    },
+    {
+        "ip": "::1",
+        "user": "Pepito@gmail.com",
+        "time": "2022-10-30 07:44:16",
+        "status": "logoff"
+    },
+    {
+        "ip": "::1",
+        "user": "Pepito@gmail.com",
+        "time": "2022-10-30 07:44:25",
+        "status": "signin_success"
+    },
+    {
+        "ip": "::1",
+        "user": "Pepito@gmail.com",
+        "time": "2022-10-30 07:44:29",
+        "status": "logoff"
+    },
+    {
+        "ip": "::1",
+        "user": "marcpontbartroli@gmail.com",
+        "time": "2022-10-30 07:45:32",
+        "status": "signin_success"
+    }
+]

@@ -1,10 +1,17 @@
-[
-    [
-        "marcpontbartroli@gmail.com",
-        {
-            "email": "marcpontbartroli@gmail.com",
-            "password": "Patata123",
-            "name": "Marc"
-        }
-    ]
-]
+{
+    "marcpontbartroli@gmail.com": {
+        "email": "marcpontbartroli@gmail.com",
+        "password": "Patata123",
+        "name": "Marc"
+    },
+    "Pere@gmail.com": {
+        "email": "Pere@gmail.com",
+        "password": "Patata123",
+        "name": "Pere"
+    },
+    "Pepito@gmail.com": {
+        "email": "Pepito@gmail.com",
+        "password": "patata",
+        "name": "Pepito"
+    }
+}

@@ -1,94 +1,97 @@
 <?php
 session_start();
 
+include_once "funcions.php";
 
 $rebo_dades = ($_SERVER['REQUEST_METHOD'] == 'POST');
 
-$dades_ok =   $rebo_dades &&
-
-    isset($_POST['method']);
+$dades_ok = $rebo_dades && isset($_POST['method']);
 
 if ($rebo_dades) {
     if ($dades_ok && !$_POST['method'] == "") {
-
-
-        if ($_POST['method'] == "signup") {
-
-            $dades = array('email' => $_POST['email'], 'password' => $_POST['password'], 'name' => $_POST['Nom']);
-
-            $dades2 = array($_POST['email'], $dades);
-
-            $tots = llegeix("users.json");
-
-            foreach ($tots as $key => $value) {
-                if (in_array($_POST['email'], $value)) {
-                    header("Location: index.php?error=Jaestasregistrat", true, 303);
-                    die();
-                }
-                
-            }
-            array_push($tots, $dades2);
-                
-                escriu($tots, "users.json");
-                $_SESSION['Usuari'] = $_POST['Nom'];
-                header("Location: hola.php", true, 302);
-                die();
-        } elseif ($_POST['method'] == "signin") {
-            $tots = llegeix("users.json");
-
-            foreach ($tots as $key => $value) {
-
-                if (in_array($_POST['email'], $value)) {
-
-                    $key = array_search($_POST['email'], $value);
-                    $var = ($tots[$key][1]);
-
-                    if ($var["password"] == $_POST['password']) {
-                        $_SESSION['Usuari'] = $var["name"];
-                        header("Location: hola.php", true, 302);
-                        die();
-                    } else {
-                        header("Location: index.php?error=passwordIncorrecta", true, 303);
-                        die();
-                    }
-                }
-            }
-            header("Location: index.php?error=noestasregistrat", true, 303);
-            die();
-        }
-        //header("Location: index.php", true, 302);
-        //CompravarParaula($paraulaEntrada);
-        //die();
+        $Usuaris = llegeix("users.json");
+        if ($_POST['method'] == "signup") registrarUsuari($Usuaris);
+        elseif ($_POST['method'] == "signin") iniciarSessio($Usuaris);
     } else {
+        registrarStatus("logoff",$_SESSION['Correu']);
         header("Location: index.php", true, 303);
-        die();
+        session_unset();
     }
-} else {
-    header("Location: index.php", true, 303);
-    die();
-}
+} else header("Location: index.php", true, 303);
+
 /**
- * Llegeix les dades del fitxer. Si el document no existeix torna un array buit.
+ * Funció iniciarSesio serveix per verificar si l'usuari que ha iniciat la sessió està registrat o si l'ha contrasenya 
+ * es correcta. En cas que estigui registrat et portarà a hola.php. En cas contrari et portarà a index.php amb l'error 
+ * corresponent.
  *
- * @param string $file
- * @return array
+ * @param array $Usuaris Es l'array on estan gurdats tots els usuaris que estan registrats.
  */
-function llegeix(string $file): array
+function iniciarSessio(array  $Usuaris)
 {
-    $var = [];
-    if (file_exists($file)) {
-        $var = json_decode(file_get_contents($file), true);
+    if (isset($Usuaris[$_POST['email']])) {
+        $usuari = $Usuaris[$_POST['email']];
+        if ($usuari["password"] == $_POST['password']) {
+            guardarDadesSesio($usuari["name"],$_POST['email'],$_SERVER['REQUEST_TIME']);
+            registrarStatus("signin_success",$_SESSION['Correu']);
+            header("Location: hola.php", true, 302);
+        } else {
+            registrarStatus("signin_password_error",$_POST['email']);
+            header("Location: index.php?error=passwordIncorrecta", true, 303);
+        }
+    } else {
+        registrarStatus("signin_email_error",$_POST['email']);
+        header("Location: index.php?error=noestasregistrat", true, 303);
     }
-    return $var;
 }
 
 /**
- * Guarda les dades a un fitxer
+ * Funcio per registrar un usuari. Si es registra correctament et portarà a hola.php. 
+ * En cas contrari et portarà a index.php amb l'error corresponent.
  *
- * @param array $dades
- * @param string $file
+ * @param array $Usuaris Es l'array on estan gurdats tots els usuaris que estan registrats.
  */
-function escriu(array $dades, string $file): void
+function registrarUsuari(array  $Usuaris)
 {
-    file_put_contents($file, json_encode($dades, JSON_PRETTY_PRINT));
+    if (isset($Usuaris[$_POST['email']])) {
+        header("Location: index.php?error=Jaestasregistrat", true, 303);
+    } else {
+        if ($_POST['email'] != "" && $_POST['password'] != "" && $_POST['Nom'] != "") {
+            $Usuaris[$_POST['email']] =  array('email' => $_POST['email'], 'password' => $_POST['password'], 'name' => $_POST['Nom']);
+            escriu($Usuaris, "users.json");
+            guardarDadesSesio($_POST['Nom'],$_POST['email'],$_SERVER['REQUEST_TIME']);
+            registrarStatus("signup_success",$_SESSION['Correu']);
+            header("Location: hola.php", true, 302);
+        } else  header("Location: index.php?error=nohasemplenatelscamps", true, 303);
+    }
 }
+
+/**
+ * Funcio per guardar les variables a la Sessió.
+ *
+ * @param string $Nom Es el nom de l'usuari.
+ * @param string $Mail Es el mail de l'usuari.
+ * @param string $time Es l'hora a la que l'usuari ha iniciat sesió.
+ */
+function guardarDadesSesio(string $Nom , string $Mail , int $time)
+{
+    $_SESSION['Usuari'] = $Nom;
+    $_SESSION['Correu'] = $Mail;
+    $_SESSION['LAST_ACTIVITY'] = $time;
+}
+
+/**
+ * Funcio que guarda la IP de la connexió entrant, el moment d'accés (data, hora, minuts, segons) i 
+ * l'estat de l'accés (correcte, contrasenya-incorrecte, usuari-incorrecte, nou-usuari, creació-fallida)
+ * en el fitxer de connexions.
+ *
+ * @param string $status Es l'estat que guardarem al fitxer de connexions.
+ * @param string $usuari Es l'usuari que guardarem al fitxer de connexions.
+ */
+function registrarStatus(string $status, string $usuari)
+{
+    date_default_timezone_set('Europe/Madrid');
+    $Conexions = llegeix("connexions.json");
+    $Conexions[] = array('ip' => $_SERVER['REMOTE_ADDR'], 'user' => $usuari, 'time' => date('Y-m-d h:i:s', time()), 'status' => $status);
+    escriu($Conexions, "connexions.json");
+}
+?>
