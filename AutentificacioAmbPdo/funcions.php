@@ -16,6 +16,7 @@ function Conectarse()
         return $pdo;
     } catch (PDOException $e) {
         echo "Failed to get DB handle: " . $e->getMessage() . "\n";
+        header("Location: index.php?error=BaseDeDadesIncorrecta", true, 303);
         exit;
     }
 }
@@ -57,6 +58,7 @@ function insereixUsuari(array $Usuari)
     $e = $query->errorInfo();
     if ($e[0] != '00000') {
         echo "\nPDO::errorInfo():\n";
+        header("Location: index.php?error=BaseDeDadesIncorrecta", true, 303);
         die("Error accedint a dades: " . $e[2]);
     }
     $resultat = $query->fetch();
@@ -68,6 +70,7 @@ function insereixUsuari(array $Usuari)
         $e = $query->errorInfo();
         if ($e[0] != '00000') {
             echo "\nPDO::errorInfo():\n";
+            header("Location: index.php?error=BaseDeDadesIncorrecta", true, 303);
             die("Error accedint a dades: " . $e[2]);
         }
     }
@@ -87,6 +90,7 @@ function insereixConnexio(array $Connexió)
     $e = $query->errorInfo();
     if ($e[0] != '00000') {
         echo "\nPDO::errorInfo():\n";
+        header("Location: index.php?error=BaseDeDadesIncorrecta", true, 303);
         die("Error accedint a dades: " . $e[2]);
     }
 }

@@ -1,14 +1,16 @@
-<?php session_start(); 
+<?php session_start();
 if (isset($_SESSION['LAST_ACTIVITY']) && ($_SERVER['REQUEST_TIME'] - $_SESSION['LAST_ACTIVITY']) > 60) session_unset();
-if (isset($_SESSION['Usuari'])) header("Location: hola.php", true, 302);?>
+if (isset($_SESSION['Usuari'])) header("Location: hola.php", true, 302); ?>
 <!DOCTYPE html>
 <html lang="ca">
+
 <head>
     <title>Accés</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="style.css" rel="stylesheet">
 </head>
+
 <body>
     <div class="container" id="container">
         <div class="form-container sign-up-container">
@@ -66,6 +68,9 @@ if (isset($_SESSION['Usuari'])) header("Location: hola.php", true, 302);?>
                     break;
                 case "nohasemplenatelscamps":
                     echo '<p class="hide" id="message">No has emplenat tots els camps.</p>';
+                    break;
+                case "BaseDeDadesIncorrecta":
+                    echo '<p class="hide" id="message">Base de dades Incorrecta.</p>';
                     break;
             }
         }
