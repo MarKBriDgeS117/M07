@@ -28,6 +28,18 @@ function esborrarVotsSessioFase(string $faseId)
     unset($pdo);
     unset($query);
 }
+/**
+ * Funció que serveix per esborrar els registres de la taula votssessio.
+ * @param int $fase Es l'id de la fase .
+ */
+function esborrarVotsSessioDesdeFase(int $faseId)
+{
+    $pdo = BaseDades::conectarse();
+    $query = $pdo->prepare("delete from votssessio where faseId > ?");
+    $query->execute(array($faseId));
+    unset($pdo);
+    unset($query);
+}
 
 /**
  * Funcio que afegeix un registra a la taula votssessio.
@@ -37,13 +49,13 @@ function esborrarVotsSessioFase(string $faseId)
  */
 function afegirVotSessio(string $SessioId, string $FaseId)
 {
-    if (!llegeixVotsSessio($SessioId,$FaseId)) {
-    $pdo = BaseDades::conectarse();
-    $sql = "insert into votssessio values (?,?)";
-    $query = $pdo->prepare($sql);
-    $query->execute(array($SessioId, $FaseId));
-    unset($pdo);
-    unset($query);
+    if (!llegeixVotsSessio($SessioId, $FaseId)) {
+        $pdo = BaseDades::conectarse();
+        $sql = "insert into votssessio values (?,?)";
+        $query = $pdo->prepare($sql);
+        $query->execute(array($SessioId, $FaseId));
+        unset($pdo);
+        unset($query);
     }
 }
 /**
@@ -53,19 +65,17 @@ function afegirVotSessio(string $SessioId, string $FaseId)
  * @param string $SessioId Es l'string on hi ha el numero de la fase.
  * @return bool $row Retorna true si trova la sessio en cas contrari false.
  */
-function llegeixVotsSessio(string $SessioId, string $FaseId):bool
+function llegeixVotsSessio(string $SessioId, string $FaseId): bool
 {
     $pdo = BaseDades::conectarse();
     $query = $pdo->prepare("select `sessioId`,`FaseId` FROM votssessio where sessioId = ? and FaseId= ?");
-    $query->execute(array($SessioId,$FaseId));
+    $query->execute(array($SessioId, $FaseId));
     $row = $query->fetch();
     unset($pdo);
     unset($query);
     if ($row != null) {
         return true;
-    }else {
+    } else {
         return false;
     }
 }
-
-

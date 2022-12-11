@@ -122,6 +122,7 @@ function actulitzarConcurs(mixed $data, Fase $fase)
     Fase::actualitzarFasesSuperdas($data, "");
     Gos::esborrarVotsDesdeFase($fase->getNum());
     Gos::eliminarEliminat($fase->getNum());
+    esborrarVotsSessioDesdeFase($fase->getNum());
 }
 
 /**
