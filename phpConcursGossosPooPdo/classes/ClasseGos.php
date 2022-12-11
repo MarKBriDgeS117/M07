@@ -230,11 +230,11 @@ class gos
      * @return Gos  Retorna el gos.
      * 
      */
-    static function actualitzarVot($fase, $gosVotAntic, $gosVotNou)
+    static function actualitzarVot(int $fase, int $gosVotAntic, int $gosVotNou)
     {
         $pdo = BaseDades::conectarse();
-        $query = $pdo->prepare("select `GosId`,`vots`FROM fasevots where GosId = ?");
-        $query->execute(array($gosVotAntic));
+        $query = $pdo->prepare("select `GosId`,`vots`FROM fasevots where GosId = ? and faseId = ?");
+        $query->execute(array($gosVotAntic,$fase));
         $row = $query->fetch();
         $query = $pdo->prepare("update fasevots set vots = ? where GosId = ? and faseId = ?");
         $query->execute(array($row['vots'] - 1, $gosVotAntic, $fase));
