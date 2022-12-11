@@ -96,7 +96,7 @@ function modificarDataProcess()
 function borrarVotsFaseProcess()
 {
     Gos::esborrarVotsFase($_POST['BorrarVotsFase']);
-    esborrarVotsSessioFase($_POST['Fase']);
+    esborrarVotsSessioFase($_POST['BorrarVotsFase']);
     header("Location: admin.php", true, 302);
 }
 
