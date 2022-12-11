@@ -38,9 +38,6 @@ function llegeix(string $CorreuUsuari)
         $row = $query->fetch();
         unset($pdo);
         unset($query);
-        //if($row == false){
-        //    $row = [];
-        //}
         return $row;
     }
 }
