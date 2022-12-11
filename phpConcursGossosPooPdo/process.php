@@ -123,7 +123,7 @@ function afegirGosProcess()
             Gos::afegirGos($_POST['NomGos'], $_POST['ImatgeGos'], $_POST['AmoGos'], $_POST['RaçaGos']);
             header("Location: admin.php", true, 302);
         } else header("Location: admin.php?error=nohasemplenatelscampsafegirgos", true, 303);
-    }else header("Location: admin.php?error=jahihaelmaximdegossos", true, 303);
+    } else header("Location: admin.php?error=jahihaelmaximdegossos", true, 303);
 }
 
 /**
